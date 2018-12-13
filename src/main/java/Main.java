@@ -5,13 +5,13 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+    public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
         ConnectDB.connectingtoDB();
 
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Scanner sc = new Scanner(System.in);
         String userSearchByFirstName, newLastName;
-        userSearchByFirstName = sc.nextLine();
+        userSearchByFirstName = reader.readLine();
 //        DBProcessor.findingUserOnFamily();
         ConnectDB.findingUserOnFamily(userSearchByFirstName);
 
