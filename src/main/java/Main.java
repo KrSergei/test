@@ -10,10 +10,11 @@ public class Main {
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Scanner sc = new Scanner(System.in);
-        String userSearchByFirstName, newLastName;
+        String userSearchByFirstName, newFirstName;
         userSearchByFirstName = reader.readLine();
+        newFirstName = reader.readLine();
 //        DBProcessor.findingUserOnFamily();
-        ConnectDB.findingUserOnFamily(userSearchByFirstName);
+        ConnectDB.findingUserOnFamily(userSearchByFirstName, newFirstName);
 
         ConnectDB.closeDB();
     }

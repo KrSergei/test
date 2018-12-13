@@ -5,18 +5,20 @@ public class ConnectDB {
     private static final String driverName = "org.sqlite.JDBC";
     private static final String connectionString = "jdbc:sqlite:testDB.db";
     private static Statement statmt;
-    private static ResultSet resSet;
+    private static ResultSet resultSet;
     private static Connection connection;
 
     public static void connectingtoDB() throws ClassNotFoundException, SQLException {
 
-        Class.forName("org.sqlite.JDBC");
-        connection = DriverManager.getConnection("jdbc:sqlite:testDB.db");//ToDo
+        Class.forName(driverName);
+        connection = DriverManager.getConnection(connectionString);//ToDo
         System.out.println("--------------------------------------------------\nConnection complete!");
     }
-    public static void findingUserOnFamily(String userSearchByFirstName) throws SQLException {
+
+    public static void findingUserOnFamily(String userSearchByFirstName, String newFirstName) throws SQLException {
         statmt = connection.createStatement();
-        ResultSet resultSet = statmt.executeQuery("SELECT * FROM User WHERE FirstName = " + userSearchByFirstName);
+//        resultSet = statmt.executeQuery("SELECT * FROM User WHERE FirstName = " + userSearchByFirstName);
+        resultSet =statmt.executeQuery("UPDATE User SET FirstName = " +  newFirstName + " WHERE FirstName = " + userSearchByFirstName);
         while (resultSet.next()) {
             System.out.println(
                     String.format(
@@ -28,31 +30,10 @@ public class ConnectDB {
     }
 
     public static void closeDB() throws SQLException {
-
         statmt.close();
+        resultSet.close();
         connection.close();
-//        resSet.close();
-
         System.out.println("Connection closed!");
     }
-
-//
-//            System.out.println("--------------------------------------------------\nConnection complete");
-//        } catch (SQLException e) {
-//            System.out.println("Can't get connection. Incorrect URL");
-//            e.printStackTrace();
-//            return;
-//        }
-//        try {
-//            connection.close();
-//        } catch (SQLException e) {
-//            System.out.println("Can't close connection");
-//            e.printStackTrace();
-//        }
-//    }
-//    public static void findingUserFamily (String findingFamily){
-//        statmt =connection.createStatement();
-//    }
-
 
 }
