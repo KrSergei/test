@@ -15,26 +15,12 @@ public class ConnectDB {
         System.out.println("--------------------------------------------------\nConnection complete!");
     }
 
-    public static void findingUserOnFamily(String userSearchByFirstName, String newFirstName) throws SQLException {
-//        String sqlQuery = "SELECT * FROM User WHERE FirstName = ?";
-//        pstmt  = connection.prepareStatement(sqlQuery);
-//        pstmt.setString(1, userSearchByFirstName);
-//        resultSet = pstmt.executeQuery();
 
-
-
-
-
-        String sqlQuery = "UPDATE User SET FirstName = ?" + " WHERE FirstName = ?";
-        pstmt  = connection.prepareStatement(sqlQuery);
+    public static void searchUserOnFamily(String userSearchByFirstName) throws SQLException {
+        String sqlQuery = "SELECT * FROM User WHERE FirstName = ?";
+        pstmt = connection.prepareStatement(sqlQuery);
         pstmt.setString(1, userSearchByFirstName);
-        pstmt.setString(2, newFirstName);
         resultSet = pstmt.executeQuery();
-
-
-
-//        resultSet = statmt.executeQuery("SELECT * FROM User WHERE FirstName = " + userSearchByFirstName);
-//        resultSet =statmt.executeQuery("UPDATE User SET FirstName = " + newFirstName +" WHERE FirstName = " + userSearchByFirstName);
         while (resultSet.next()) {
             System.out.println(
                     String.format(
@@ -43,6 +29,29 @@ public class ConnectDB {
                             resultSet.getString("FirstName"),
                             resultSet.getString("LastName")));
         }
+    }
+
+    public static void updateUserFamily(String userSearchByFirstName, String newFirstName) throws SQLException {
+        String sqlQuery = "UPDATE User SET FirstName = ? " + " WHERE FirstName = ?";
+        pstmt = connection.prepareStatement(sqlQuery);
+        pstmt.setString(1, newFirstName);
+        pstmt.setString(2, userSearchByFirstName);
+        pstmt.executeUpdate();
+//        resultSet = pstmt.executeQuery();
+//
+//
+//
+//        resultSet = pstmt.executeQuery("SELECT * FROM User WHERE FirstName = ?" + newFirstName);
+//        pstmt.setString(1, newFirstName);
+//        resultSet = pstmt.executeQuery();
+//        while (resultSet.next()) {
+//            System.out.println(
+//                    String.format(
+//                            "ID=%d, FirstName=%s, LastName=%s",
+//                            resultSet.getInt("ID"),
+//                            resultSet.getString("FirstName"),
+//                            resultSet.getString("LastName")));
+//        }
     }
 
     public static void closeDB() throws SQLException {

@@ -6,16 +6,15 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
-        ConnectDB.connectingtoDB();
 
+        ConnectDB.connectingtoDB();
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Scanner sc = new Scanner(System.in);
         String userSearchByFirstName, newFirstName;
         userSearchByFirstName = reader.readLine();
+        ConnectDB.searchUserOnFamily(userSearchByFirstName);
         newFirstName = reader.readLine();
-//        DBProcessor.findingUserOnFamily();
-        ConnectDB.findingUserOnFamily(userSearchByFirstName, newFirstName);
-
+        ConnectDB.updateUserFamily(userSearchByFirstName, newFirstName);
         ConnectDB.closeDB();
     }
 
