@@ -1,4 +1,5 @@
 import org.junit.*;
+
 import java.sql.*;
 
 public class TestConnectDB {
@@ -28,7 +29,7 @@ public class TestConnectDB {
     }
 
     @AfterClass
-    public static void afterTest() throws SQLException, ClassNotFoundException {
+    public static void afterTest() throws SQLException {
 
         //удаление таблицы из базы данных
         System.out.println("afterTest");
@@ -51,7 +52,7 @@ public class TestConnectDB {
         pstmt = connection.prepareStatement("SELECT * FROM Users WHERE FirstName = 'Ivanov'");
         resultSet = pstmt.executeQuery();
 
-        //Сравнение ошидаемого результата с пролученным
+        //Сравнение ожидаемого результата с пролученным
         Assert.assertEquals("ID=1, FirstName=Ivanov, LastName=Ivan", String.format(
                 "ID=%d, FirstName=%s, LastName=%s",
                 resultSet.getInt("ID"),
@@ -92,8 +93,8 @@ public class TestConnectDB {
                 resultSet.getString("LastName")));
         resultSet = pstmt.executeQuery();
 
-        //Вывод результата запроса в консооль
-          while (resultSet.next()) {
+        //Вывод результата запроса
+        while (resultSet.next()) {
             System.out.println(
                     String.format(
                             "ID=%d, FirstName=%s, LastName=%s",
@@ -102,4 +103,9 @@ public class TestConnectDB {
                             resultSet.getString("LastName")));
         }
     }
+
+//    @Test
+//    public void testSearchUserOnNoValidFisrName() throws SQLException {
+//        //ToDo
+//    }
 }
